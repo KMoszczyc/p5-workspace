@@ -4,7 +4,6 @@ class Symbol {
         this.y = y;
         this.framesPerMove = framesPerMove;
         this.value;
-        this.randomAlpha = round(random(10, 255))
         this.first = false;
     }
 

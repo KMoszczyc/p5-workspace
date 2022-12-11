@@ -1,8 +1,9 @@
 class Stream {
     constructor() {
         this.symbols = []; 
-        this.totalSymbols = round(random(2, 10));
-        this.framesPerMove = round(random(2, 5));
+        this.totalSymbols = 2
+        this.framesPerMove = round(random(2, 6));
+        this.symbolSize = round(random(10, 25))
     }
 
     move() {
@@ -11,10 +12,12 @@ class Stream {
 
         let symbol = this.getSymbolCopy(this.symbols[0])
         symbol.setRandomSymbol()
-        symbol.y += symbolSize;
-
-        if (symbol.y > height + symbolSize / 2) 
-            symbol.y = -symbolSize / 2;
+        symbol.y += this.symbolSize
+        
+        // Reset if bottom is reached or randomly before that
+        if (symbol.y > height + this.symbolSize / 2 || random(1) < this.symbolSize/height) {
+            this.reset(symbol)
+        }
         
         this.symbols.unshift(symbol)
         this.symbols.pop()
@@ -26,7 +29,7 @@ class Stream {
             let symbol = new Symbol(x, y, this.framesPerMove);
             symbol.setRandomSymbol();
             this.symbols.push(symbol);
-            y -= symbolSize;
+            y -= this.symbolSize;
         }
 
         this.symbols[0].first = round(random(0, 4)) == 1 ? true : false;
@@ -34,6 +37,7 @@ class Stream {
 
     render() {
         this.move()
+        textSize(this.symbolSize);
 
         for(symbol of this.symbols){
             if (symbol.first) {
@@ -41,7 +45,7 @@ class Stream {
                 textStyle(BOLD);
             }
             else {
-                fill(0, 255, 70, symbol.randomAlpha);
+                fill(0, 255, 70);
                 textStyle(NORMAL);
             }
             text(symbol.value, symbol.x, symbol.y);
@@ -53,5 +57,10 @@ class Stream {
         newSymbol.first = true
 
         return newSymbol
+    }
+
+    reset(symbol){
+        symbol.y = -this.symbolSize / 2;
+        symbol.x = random(width)
     }
 }

@@ -1,27 +1,24 @@
 let symbol;
 let streams = [];
-const symbolSize = 20;
+let totalStreams = 100
 
 p5.disableFriendlyErrors = true
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
-    let x = 0;
-    for (let i = 0; i < width / symbolSize; i++) {
+    for (let i = 0; i < totalStreams; i++) {
         let stream = new Stream();
-        stream.generateSymbols(x, random(-1000, 0));
+        stream.generateSymbols(random(width), random(-1000, 0));
 		streams.push(stream)
-		x += symbolSize
     }
 
     const totalSymbols = streams.reduce((acc, stream) => acc + stream.totalSymbols, 0)
     console.log('totalSymbols: ', totalSymbols)
-
-    textSize(symbolSize);
+    background(10);
 }
 
 function draw() {
-    background(0, 30);
+    background(0, 10);
     for(stream of streams){
         stream.render()
     }
