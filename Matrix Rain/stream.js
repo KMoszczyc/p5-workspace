@@ -2,7 +2,7 @@ class Stream {
     constructor() {
         this.symbols = []; 
         this.totalSymbols = 2
-        this.framesPerMove = round(random(2, 6));
+        this.framesPerMove = round(random(2, 5));
         this.symbolSize = round(random(10, 25))
     }
 
