@@ -11,7 +11,7 @@ let frameCount=0;
 let slider;
 
 function setup() {
-  createCanvas(1745,855);
+  createCanvas(windowWidth, windowHeight);
   for(let i=0;i<astQuantity;i++) {
     asteroids[i]=new Asteroid();
   }
