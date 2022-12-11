@@ -2,7 +2,7 @@ class Stream {
     constructor() {
         this.symbols = []; 
         this.totalSymbols = round(random(3, 15));
-        this.framesPerMove = round(random(3, 10));
+        this.framesPerMove = round(random(2, 5));
     }
 
     move() {
@@ -10,6 +10,7 @@ class Stream {
             return
 
         let symbol = this.getSymbolCopy(this.symbols[0])
+        symbol.setRandomSymbol()
         symbol.y += symbolSize;
 
         if (symbol.y > height + symbolSize / 2) 
@@ -34,9 +35,7 @@ class Stream {
     render() {
         this.move()
 
-        this.symbols.forEach((symbol) => {
-            symbol.setRandomSymbol();
-
+        for(symbol of this.symbols){
             if (symbol.first) {
                 fill(180, 255, 180);
                 textStyle(BOLD);
@@ -46,13 +45,12 @@ class Stream {
                 textStyle(NORMAL);
             }
             text(symbol.value, symbol.x, symbol.y);
-            });
+        }
     }
 
     getSymbolCopy(symbol) {
         let newSymbol = new Symbol(symbol.x, this.symbols[0].y, this.framesPerMove); 
         newSymbol.first = true
-        newSymbol.value = symbol.value
 
         return newSymbol
     }

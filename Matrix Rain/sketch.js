@@ -1,6 +1,6 @@
 let symbol;
 let streams = [];
-const symbolSize = 24;
+const symbolSize = 20;
 
 p5.disableFriendlyErrors = true
 function setup() {
@@ -22,7 +22,9 @@ function setup() {
 
 function draw() {
     background(0, 30);
-	streams.forEach((stream) => stream.render())
+    for(stream of streams){
+        stream.render()
+    }
 
     if(frameCount % 300 == 0)
         print(frameRate())
